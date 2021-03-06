@@ -46,10 +46,21 @@
 
 .start{
   position: absolute;
-  top :40%;
-  left: 50%;
-  /* width: 70px;
-  height: 30px; */
+  top :20%;
+  left: 10%;
+  color: white;
+  background-color: black;
+  width: 70px;
+border-radius: 10%;
+border-color: wheat;
+  height: 30px; 
   font-size: large;
   
+}
+
+.heading-timer{
+  font-size:x-large;
+  position: absolute;
+  top :20%;
+  left: 50%;
 }
