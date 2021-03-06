@@ -4,9 +4,11 @@ var timeInterval = 0;
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { time: 0, x: 0, y: 0 };
+    this.state = { time: 0, x: 0, y: 0, renderBall: false };
+    this.renderChoice = this.renderChoice.bind(this);
     this.displayBall = this.displayBall.bind(this);
     this.handleListener = this.handleListener.bind(this);
+    this.interval = this.interval.bind(this);
   }
   // componentDidMount() {
 
@@ -43,7 +45,9 @@ class Timer extends React.Component {
   }
 
   interval() {
+    console.log("interval");
     if (this.state.time === 0) {
+      console.log("interval if");
       timeInterval = setInterval(() => {
         this.setState({ time: this.state.time + 1 });
       }, 1000);
@@ -53,27 +57,52 @@ class Timer extends React.Component {
     }
   }
 
-  displayBall() {
-    if (this.state.time === 0) {
-      this.interval();
-      document.addEventListener("keydown", this.handleListener);
-    }
+  // displayBall() {
+  //   if (this.state.time === 0) {
+  //     this.interval();
+  //     document.addEventListener("keydown", this.handleListener);
+  //   }
+  // }
+  buttonClickHandler() {
+    console.log("buttonClick handler");
+    // setRenderBall(true);
+    this.state.renderBall({ renderBall: true });
   }
 
-  render() {
+  displayBall() {
+    console.log("in onclick");
+    // timeInterval = setInterval(() => {
+    //   this.setState({ time: this.state.time + 1 });
+    // }, 1000);
+    // console.log("time interval" + timeInterval);
+    this.interval();
+    document.addEventListener("keydown", this.handleListener);
+  }
+
+  renderChoice() {
+    console.log("renderchoice");
+    console.log("in if");
     return (
       <>
         <div
           className="ball"
-          style={{ left: this.state.x, top: this.state.y }}
+          style={{
+            left: this.state.x,
+            top: this.state.y,
+            position: "absolute"
+          }}
         ></div>
-        <div className="hole"></div>
         <button className="start" onClick={this.displayBall}>
-          Start
+          start
         </button>
         <div className="heading-timer">{this.state.time}</div>
+        <div className="hole"></div>
       </>
     );
+  }
+
+  render() {
+    return <>{this.renderChoice()}</>;
   }
 }
 
