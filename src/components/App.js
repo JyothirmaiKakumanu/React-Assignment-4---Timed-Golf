@@ -71,12 +71,10 @@ class Timer extends React.Component {
 
   displayBall() {
     console.log("in onclick");
-    // timeInterval = setInterval(() => {
-    //   this.setState({ time: this.state.time + 1 });
-    // }, 1000);
-    // console.log("time interval" + timeInterval);
-    this.interval();
+    if(this.state.time===0){
+      this.interval();
     document.addEventListener("keydown", this.handleListener);
+    }
   }
 
   renderChoice() {
