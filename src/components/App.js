@@ -38,14 +38,26 @@ class Timer extends React.Component {
       default:
         break;
     }
+    // this.interval();
     if (this.state.x === 250 && this.state.y === 250) {
       document.removeEventListener("keydown", this.handleListener);
       this.interval();
     }
   }
+  // clearTimer() {
+  //   if (this.state.x === 250 && this.state.y === 250) {
+  //     clear
+  //     document.removeEventListener("keydown", this.handleListener);
+  //     // this.interval();
+
+  //   }
+  // }
 
   interval() {
     console.log("interval");
+    // if (this.state.x === 250 && this.state.y === 250) {
+    //   this.clearTimer();
+    // }
     if (this.state.time === 0) {
       console.log("interval if");
       timeInterval = setInterval(() => {
@@ -54,15 +66,16 @@ class Timer extends React.Component {
     }
     if (this.state.x === 250 && this.state.y === 250) {
       clearInterval(timeInterval);
+      // this.clearTimer();
     }
+    // return timeInterval;
   }
 
-  // displayBall() {
-  //   if (this.state.time === 0) {
-  //     this.interval();
-  //     document.addEventListener("keydown", this.handleListener);
-  //   }
+  // clearTimer() {
+  //   let timer = this.interval();
+  //   clearInterval(timer);
   // }
+
   buttonClickHandler() {
     console.log("buttonClick handler");
     // setRenderBall(true);
@@ -71,9 +84,9 @@ class Timer extends React.Component {
 
   displayBall() {
     console.log("in onclick");
-    if(this.state.time===0){
+    if (this.state.time === 0) {
       this.interval();
-    document.addEventListener("keydown", this.handleListener);
+      document.addEventListener("keydown", this.handleListener);
     }
   }
 
