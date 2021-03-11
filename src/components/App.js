@@ -1,8 +1,11 @@
+
 import React, { Component, createRef, useState } from "react";
+
 import "../styles/App.css";
 class Timer extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { time: 0, x: 0, y: 0,clk:false,win:false , tm:createRef()};
     this.handleclick = this.handleclick.bind(this);
     this.handlekeypress = this.handlekeypress.bind(this);
@@ -103,8 +106,12 @@ class Timer extends React.Component {
   }
 
 
-  render() {
+
+  renderChoice() {
+    console.log("renderchoice");
+    console.log("in if");
     return (
+
         <>
           <div className="ball" style={{top:this.state.x,left :this.state.y}}></div>
           
@@ -112,7 +119,12 @@ class Timer extends React.Component {
           <div className="heading-timer">{ this.foo()}</div>
  
         </>
+
     );
+  }
+
+  render() {
+    return <>{this.renderChoice()}</>;
   }
 }
 
