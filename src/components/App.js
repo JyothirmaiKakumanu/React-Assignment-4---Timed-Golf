@@ -1,81 +1,117 @@
-import React, { Component, useState } from "react";
+import React, { Component, createRef, useState } from "react";
 import "../styles/App.css";
-var timeInterval = 0;
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { time: 0, x: 0, y: 0 };
-    this.displayBall = this.displayBall.bind(this);
-    this.handleListener = this.handleListener.bind(this);
+    this.state = { time: 0, x: 0, y: 0,clk:false,win:false , tm:createRef()};
+    this.handleclick = this.handleclick.bind(this);
+    this.handlekeypress = this.handlekeypress.bind(this);
+    
+   
   }
-  // componentDidMount() {
-    
-  // }
+  
 
-  // componentWillUnmount() {
-    
-  // }
+  componentDidMount() {
+   
+  }
+  
 
-  handleListener(event){
-    switch(event.keyCode){
-      case 39:
-        this.setState(
-          {x:this.state.x+5,}
-          );
-        break;
-      
-      case 40:
-        this.setState(
-          {y:this.state.y+5,}
-          );
-        break;
-       
-      case 38:
-        this.setState(
-          {y:this.state.y-5,}
-          );
-        break;
+  componentWillUnmount() {
+  
+  }
+  
+  
+  
+  
+
+  render_ball_and_hole(){
+    
+   if(this.state.clk)
+   {
+      return(
+        <>
         
-      case 37:
-        this.setState(
-          {x:this.state.x-5,}
-          );
-        break;
-    }
-    if(this.state.x==250 && this.state.y ==250){
+        <div className="hole"></div>
+        </>
+      )
+   }
+   else{
+    return  <button className="start" onClick={this.handleclick} >start</button>
+   }
+
+  }
+
+  handleclick(){
+    this.setState({clk:true})
+    document.addEventListener("keydown" , this.handlekeypress)
     
-      document.removeEventListener("keydown",this.handleListener);
-      this.interval();
-    }
+
+
+       var t =  setInterval(()=>{this.setState({time : this.state.time+1})} , 1000);
+        
+        this.setState({tm:t});
+    
+
+     
   }
 
-  
-interval(){
-  if(this.state.time==0){
-    timeInterval = setInterval(()=>{this.setState({time: this.state.time+1})},1000);
-  }
-  if(this.state.x==250 && this.state.y==250){
-    clearInterval(timeInterval);
-  }
-}
+  foo()
+  {
+    if(this.state.x == 250 && this.state.y == 250){
+         clearInterval(this.state.tm)
+         document.removeEventListener("keydown" ,this.handlekeypress)
+        
+       }
+       
 
-displayBall(){
-  if(this.state.time==0){
-    this.interval();
-    document.addEventListener("keydown",this.handleListener);
-  }
-  
+    // let sec = this.state.time % 60;
+    // let min = Math.floor(this.state.time / 60);
+    // let hour =Math.floor(this.state.time / 3600);
 
-}
+    //  console.log(this.state.tm)
+    // return `${hour}:${min}:${sec}`
+  let sec = this.state.time
+  return `${sec}`
+    
+  }
+
+
+  //hadling keyboard events
+  handlekeypress(e){
+    //console.log(e.keyCode);
+    switch(e.keyCode)
+      { 
+        case 37:
+          this.setState({y:this.state.y -5})
+          //console.log(this.state);
+          break;
+        case 38:
+          this.setState({x:this.state.x -5})
+          //console.log(this.state);
+          break;
+        case 39:
+          this.setState({y: this.state.y + 5})
+          //console.log(this.state);
+          break;
+        case 40:
+          this.setState({x:this.state.x+5})
+          //console.log(this.state);
+          break;
+        
+
+      }
+  }
+
 
   render() {
     return (
- <>
- <div className="ball" style={{left : this.state.x, top : this.state.y}}></div>
- <div className="hole"></div>
- <button className="start" onClick={this.displayBall}>Start</button>
- <div className="heading-timer">{this.state.time}</div>
-</>
+        <>
+          <div className="ball" style={{top:this.state.x,left :this.state.y}}></div>
+          
+          {this.render_ball_and_hole()}
+          <div className="heading-timer">{ this.foo()}</div>
+ 
+        </>
     );
   }
 }
